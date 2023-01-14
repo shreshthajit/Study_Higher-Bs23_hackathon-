@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import styled from "styled-components";
 import {useNavigate, Link } from "react-router-dom";
 import RegLogo  from '../assests/register.jpg'
@@ -10,7 +10,6 @@ import {registerRoute} from '../API/APIRoutes.js';
 
 
 const Register = () => {
-
 
     const navigate = useNavigate();
     const toastOptions = {
@@ -28,6 +27,12 @@ const Register = () => {
         password: "",
         confirmPassword: "",
       });
+
+      useEffect(() => {
+        if (localStorage.getItem("current-user")) {
+          navigate("/");
+        }
+      }, []);
 
       const handleChange = (event) => {
         setValues({ ...values, [event.target.name]: event.target.value });
@@ -158,7 +163,7 @@ const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    background-color:#00FFFF;
+    background-color: #00FFFF;
     border-radius: 2rem;
     padding: 3rem 5rem;
   }
